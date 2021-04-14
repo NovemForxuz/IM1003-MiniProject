@@ -9,5 +9,5 @@ Features:
 - BGM
 - Timer (time elapsed)
 - Gameboard Themes
-
+Dev note: Game still have bugs, fix it.
 Edit note: Prof said he likes it with more aethetics (Buttons, etc.)...
