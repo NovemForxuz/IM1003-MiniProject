@@ -70,7 +70,7 @@ public enum SoundFX {
       try {
          Thread.sleep(3000);
       } catch (Exception x) {};
-      SoundBGM.WAIT.play();
+      //SoundBGM.WAIT.play();
    }
    public void stop() {
 

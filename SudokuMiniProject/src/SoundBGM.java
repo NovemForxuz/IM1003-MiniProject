@@ -14,9 +14,8 @@ import javax.sound.sampled.*;
  */
 public enum SoundBGM {
 
-   BGM("BGM.wav"),
-   WAIT("waiting.wav"),
-   MENU("menu.wav");
+   BGM("BGM.wav");
+   
    
    // Nested class for specifying volume
    public static enum Volume {

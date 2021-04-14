@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+//import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
 
 public class Sudoku extends JFrame {
@@ -89,6 +90,7 @@ public class Sudoku extends JFrame {
 	private static JLabel lblTimer;
 	private static JLabel lblMode;
 	private static JButton btnHint;
+	private static Timer timer;
 	
 	/*Use a singleton design pattern*/
 	private static final Sudoku INSTANCE = null;
@@ -117,6 +119,7 @@ public class Sudoku extends JFrame {
 		}
 		// initiate start time
 		startTimer();
+		//startTime();
 
 		// Container cp = getContentPane();
 		// cp.setLayout(new GridLayout(GRID_SIZE, GRID_SIZE)); // 9x9 GridLayout
@@ -156,6 +159,9 @@ public class Sudoku extends JFrame {
 					lblMode.setText("Easy");
 					gameMode = 1;
 					
+					//timer.stop();
+					//timer.restart();
+					
 					resetTimerFlag = true;
 					startTimer();
 					newPuzzle();
@@ -186,18 +192,7 @@ public class Sudoku extends JFrame {
 				}
 			}
 		});
-		JMenuItem8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int a = JOptionPane.showConfirmDialog(null, "Do you want to start a new game?");
-				if (a == JOptionPane.YES_OPTION) {
-					stopTimerFlag = true; 						// trigger timer stop func
-					lblMode.setText("Test");
-					gameMode = 0;
-					
-					newPuzzle();
-				}
-			}
-		});
+		
 
 		JMenu JMenu3 = new JMenu("Help");
 		JMenuItem JMenuItem7 = new JMenuItem("Techniques");
@@ -229,7 +224,6 @@ public class Sudoku extends JFrame {
 		JMenu2.add(JMenuItem4);
 		JMenu2.add(JMenuItem5);
 		JMenu2.add(JMenuItem6);
-		JMenu2.add(JMenuItem8);
 		JMenu3.add(JMenuItem7);
 		JMenu3.add(instruction);
 		MenuBar.add(JMenu1);
@@ -378,7 +372,7 @@ public class Sudoku extends JFrame {
 			}
 		});
 		mnOptions.add(chckbxmntmMusic);
-		JCheckBoxMenuItem hintOption = new JCheckBoxMenuItem("Hint");
+		/*JCheckBoxMenuItem hintOption = new JCheckBoxMenuItem("Hint");
 		hintOption.setSelected(false);
 		hintOption.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -393,7 +387,7 @@ public class Sudoku extends JFrame {
 				}
 			}
 		});
-		mnOptions.add(hintOption);
+		mnOptions.add(hintOption);*/
 		SoundBGM.init();
 		SoundBGM.volume = SoundBGM.Volume.LOW;
 		SoundBGM.BGM.play();
@@ -444,7 +438,7 @@ public class Sudoku extends JFrame {
 		btnHint = new JButton("Display hint");
 		btnHint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showHint(); //takes in row & col of selected JTextField
+				//showHint(); //takes in row & col of selected JTextField
 			}
 		});
 		btnHint.setVisible(false);
@@ -522,6 +516,7 @@ public class Sudoku extends JFrame {
 						masks[rowSelected][colSelected] = false;
 						SoundFX.CORRECT.play();
 					} else {
+						
 						tfCells[rowSelected][colSelected].setBackground(OPEN_CELL_TEXT_NO);
 						SoundFX.WRONG.play();
 					}
@@ -598,6 +593,15 @@ public class Sudoku extends JFrame {
 		SudokuPuzzleGenerator puz = new SudokuPuzzleGenerator();
 		int[][] board = puz.generate();
 		puzzle = board.clone();
+		
+		setGameMode();
+		if (gameMode != 0) {
+			SudokuMaskGenerator mask = new SudokuMaskGenerator();
+
+			boolean[][] musk = mask.generate(gameMode); /** Game-mode: ez-1, med-2, hard-3, extreme-4 */
+			masks = musk.clone();
+		}
+		
 		for (int row = 0; row < GRID_SIZE; ++row) {
 			for (int col = 0; col < GRID_SIZE; ++col) {
 				if (masks[row][col] == false && colour[row][col] == false) {
@@ -633,9 +637,7 @@ public class Sudoku extends JFrame {
 	/* Time elapsed function */
 	public void startTimer() {
 		//Only one instance of timer
-		if(TIMER_INSTANCE == null) {
-			TIMER_INSTANCE = new Timer();
-		}
+		Timer timer = new Timer();
 		if(resetTimerFlag) {
 			second = 0;
 			minute = 0;
@@ -665,8 +667,8 @@ public class Sudoku extends JFrame {
 
 							// stop current timer, start a new one
 							if (stopTimerFlag) {
-								TIMER_INSTANCE.cancel();
-								TIMER_INSTANCE.purge();
+								timer.cancel();
+								timer.purge();
 								stopTimerFlag = false;
 								//return;
 							}
@@ -682,9 +684,15 @@ public class Sudoku extends JFrame {
 			}
 		};
 
-		TIMER_INSTANCE.scheduleAtFixedRate(task, 1000, 1000);
+		timer.scheduleAtFixedRate(task, 1000, 1000);
 		
 	}
+	
+	/*public void startTime(ActionListener listener) {
+		timer = new Timer(1000, listener);
+		timer.start();
+		
+	}*/
 	
 	/*Game-mode: ez-1, med-2, hard-3*/
 	public void setGameMode() {
