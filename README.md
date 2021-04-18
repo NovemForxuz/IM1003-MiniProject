@@ -6,7 +6,7 @@ An exercise for Object-Oriented Programming. Built a Sudoku game using Java
 Features:
 - Random puzzle generator
 - Random mask generator
-- BGM
+- Background Music
 - Timer (time elapsed)
 - Gameboard Themes
 
