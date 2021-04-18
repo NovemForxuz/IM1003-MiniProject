@@ -13,11 +13,11 @@ Features:
 
 Sudoku-Easy-Meadow           
 :------------------------:
-![Sudoku_easy](https://user-images.githubusercontent.com/30825204/115138359-8357eb80-9fe0-11eb-9661-5436561cb079.PNG)
+![Sudoku_easy](https://user-images.githubusercontent.com/30825204/115138463-30326880-9fe1-11eb-9db2-d78c4d26c33b.PNG)
 
 Sudoku-Medium-Sakura
 :------------------------:
-![Sudoku_MediumSakura](https://user-images.githubusercontent.com/30825204/115138377-9a96d900-9fe0-11eb-897a-cfecb85ed4f9.PNG)
+![Sudoku_MediumSakura](https://user-images.githubusercontent.com/30825204/115138458-2b6db480-9fe1-11eb-8089-48d06072102b.PNG)
 
 Sudoku-Hard-Ocean
 :------------------------:
